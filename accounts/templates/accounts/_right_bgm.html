@@ -1,0 +1,18 @@
+{% load static %}
+  <!-- 오디오 자동재생부분 -->
+  <div style="display:flex;flex-wrap:nowrap;">
+    <div class="bgm_box">
+      <iframe src="{% static '/silence.mp3' %}" allow="autoplay" id="audio" style="display:none"></iframe>  
+        <audio width="200px"id="el_audio" autoplay loop controls style="justify-content:center;">
+          <source src="{% static '/background_music.mp3' %}" type="audio/mp3"/>
+        </audio>
+    </div> 
+  </div>
+
+
+
+<script>
+  // 오디오 자동재생 볼륨 조절 (0 ~ 1까지)
+  const audio = document.getElementById("el_audio")
+  audio.volume = 0.1;
+</script>

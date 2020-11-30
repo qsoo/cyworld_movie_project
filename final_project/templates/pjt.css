@@ -1,0 +1,56 @@
+<style>
+.menu_bar {
+  float:left;
+}
+.menu_btn {
+	width:70pt;
+	height:40pt;
+	border: 2px solid #819FF7;
+	background-color: #CEECF5;
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+.logout_btn{
+
+}
+body{
+	scrollbar-face-color:#FFFFFF;
+	scrollbar-highlight-color:#DBDBDB;
+	scrollbar-3dlight-color:#FFFFFF;
+	scrollbar-shadow-color:#9C92FF;
+	scrollbar-darkshadow-color:#FFFFFF;
+	scrollbar-track-color:#FFFFFF;
+	scrollbar-arrow-color:#9C92FF
+	background-image:url('https://cdn.crowdpic.net/list-thumb/thumb_l_BD9725CBE59C9229B808928D5FEDA1EA.jpg');
+	{% comment %} background-repeat:no-repeat;
+	background-size:cover; {% endcomment %}
+	{% comment %} box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); {% endcomment %}
+ }
+.skinButton {
+	 	text-align:right;
+		width:80px;
+		height:30px;
+		inline-height:40px;
+    background-color:#E0E6F8;
+    border:none;
+    color:#fff;
+    padding:5px 0;
+    text-align:center;
+    text-decoration:none;
+    {% comment %} display:inline-block; {% endcomment %}
+    font-size:15px;
+    margin:5px;
+    cursor:pointer;
+}
+.right1 {
+	display:flex;
+	justify-content:flex-end;
+	align-items:center;
+}
+.border1 {
+	{% comment %} border-width: 3px;
+	border-color : red #333; {% endcomment %}
+	border: 10px solid #F8E0F1;
+	border-radius: 10px;
+}
+
+</style>

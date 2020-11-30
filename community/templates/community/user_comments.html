@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>{{ user.username }}댓글</h2>
+{% for comment in user.comment_set.all %}
+  <div>{{ comment.content }}</div>
+
+{% endfor %}
+
+{% endblock content %}

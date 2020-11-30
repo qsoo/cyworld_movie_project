@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block left %}
+  {% include 'accounts/_left_profile.html' %}
+{% endblock left %}
+
+{% block middle %}
+<br>
+<font style="font-size:14pt;"><strong><p class="text-center">내가 본 영화 목록</p></strong></font>
+<div class="movie-list-form">
+  <strong><p>내가 본 영화를 검색하고 내 영화리스트를 만들어보세요.</p></strong>
+  <hr>
+  <strong><p>영화 이미지를 클릭하면 영화 자세히 보기로 이동합니다. 내 목록에 추가하려면 영화 제목을 눌러서 추가하세요.</p></strong>
+  <input type="text" name="search_movie" placeholder="내가 본 영화를 입력하세요!">
+  <input type="submit" class="logout_btn" value="검색">
+  <!-- 검색결과들 출력 -->
+  {% if search_movie %}
+    {% for movie in search_movie_list %}
+    <div style="border:1px solid #C4CACD;margin:10px">
+     <!-- 여기는 내 영화목록에 저장 -->
+      <a href="{% url "accounts:add_mymovie_list" username movie.pk %}">
+      <div>
+        <font style="font-size:12pt;"><strong><p>{{ movie.title }}</p></strong></font>
+      </div>
+      </a>
+      <!-- 여기는 디테일 정보로 이동 -->
+      <div style="display:flex;display-direction:row;justify-content:center">
+        <div>
+        <font style="font-size:10pt;">
+          <a href="{% url 'movies:detail' movie.pk %}">
+            <img style="margin:10px"src="{{ movie.poster }}" alt="" height="150px">
+          </a>
+        </div>
+        
+        <div>
+        <br>
+          <strong><p>{{ movie.genres }}</p></strong>
+          <p display="flex-end" align="left" vertical-align="bottom text-bottom">{{ movie.content|truncatechars:130 }}<br></p> 
+          <a valign="top" class="logout_btn submit-btn" href="{% url 'movies:detail' movie.pk %}">자세히 보기</a> 
+          
+        </div>
+      </div>
+      
+        
+          
+      </font>
+    </div>
+     
+    {% endfor %}
+  <!-- 검색했을 때 결과의 총 개수 출력 -->
+    <p>검색결과는 총 <span>{{ search_movie_list|length }}</span>개입니다.</p>
+  {% endif %}
+  <br>
+  <!-- 내가 본 영화목록들 -->
+  {% with mymovies=user.mymovie.all %}
+    {% if mymovies %}
+      <p>내가 본 영화 리스트는 총 {{ mymovies|length }}개 </p>
+      <p>리스트에서 제거하려면 이름을 클릭하세요!</p>
+      <div style="border:1px solid #C4CACD;margin:10px">{% for mymovie in mymovies %}
+      <!-- 내 영화목록에서 제거하기 -->
+      {% comment %} <a href="{% url "accounts:remove_mymovie_list" username mymovie.pk %}">
+        {{ mymovie.title }}
+      </a> {% endcomment %}
+      
+        <a href="{% url "accounts:remove_mymovie_list" username mymovie.pk %}">
+          <div>
+            <font style="font-size:12pt;"><strong><p>{{ mymovie.title }}</p></strong></font>
+          </div>
+        </a>
+        <!-- 디테일 페이지로 이동 -->
+        <a href="{% url 'movies:detail' mymovie.pk %}">
+          <img style="padding:5px;" src="{{ mymovie.poster }}" alt="영화포스터" height="185px">
+        </a>
+      
+      
+      {% endfor %}</div>
+    {% else %}
+      <p>아직 내 영화목록이 없어요! 검색해서 추가해보세요!</p>
+    {% endif %}
+  {% endwith %}
+  
+</div>
+<a class="logout_btn back-btn" href="{% url "accounts:my_movie_list" request.user %}">뒤로가기</a>
+{% endblock %}

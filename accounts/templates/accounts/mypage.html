@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block left %}
+  {% include 'accounts/_left_profile.html' %}
+{% endblock left %}
+
+{% block middle %}
+  <font style="font-size:14pt;"><strong><p class="text-center">{{ request.user.nickname }}님의 마이 페이지입니다</p></strong></font>
+  <!-- 상세 페이지랑 연결 -->
+  <div font style="font-size:10pt;">
+  <div class="mypage-form">
+    <a class="mypage_btn" href="{% url "accounts:myinfo_change" request.user %}">회원정보수정</a>
+  </div>  
+
+    <!-- 내가 스크랩한 글 목록 -->
+    <div class="mypage-form" style="border:1px solid #C4CACD">
+      <a class="logout_btn " href="{% url "accounts:scrap" request.user %}">내 스크랩 목록</a>
+    <br>    
+    <div class="mypage-scroll" style="border:1px solid #C4CACD;margin:10px;">
+      <br>
+      {% for myscrap in my_scrap_list %}
+        <p>글제목: {{ myscrap.title }}</p>
+      {% endfor %}
+    </div></div> 
+    
+    
+
+
+    <div class="mypage-form">
+      <a class="logout_btn " href="{% url "accounts:linkedin" request.user %}">일촌 관리</a>
+     <br>
+    <div class="mypage-scroll" style="border:1px solid #C4CACD;margin:10px;">
+      <br>
+      {% for myfriend in my_friend_list %}
+        <p>{{ myfriend.nickname }}</p>
+      {% endfor %}
+    </div></div>    
+    
+    <!-- 찜한 영화목록 -->
+    <div class="mypage-form">
+      <a class="logout_btn " href="{% url "accounts:my_movie_list" request.user %}">찜한 영화 목록</a>
+    <br>
+    <!-- 찜한 영화목록 출력 -->
+    <div class="mypage-scroll" style="border:1px solid #C4CACD;margin:10px;">
+      {% for mymovie in my_movie_list %}
+        <p>{{ mymovie.title }}</p>
+      {% endfor %}
+    </div></div>    
+  </div>
+        
+  
+  
+  {% comment %} 각 항목별로 한 줄 정도만 비워주기  {% endcomment %}
+  
+{% endblock %}
+<style>
+.mypage-font {
+  color: black;
+}
+</style>

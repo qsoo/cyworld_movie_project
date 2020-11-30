@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block left %}
+  {% include 'accounts/_left_profile.html' %}
+{% endblock left %}
+
+
+{% block middle %}
+<br>
+<strong><font style="font-size:14pt;"><p class="text-center">영화 추천</p></font></strong>
+  {% comment %} <h1>추천영화페이지</h1> {% endcomment %}
+   <font style="font-size:11pt;"><div class="movie-list-form">
+   <div class="text-monospace">
+      <p class="h5">이런 영화는 어때요?</p>
+      <p class="h5">가장 많은 일촌평을 남긴 <span class="h4 font-weight-bold">{{ my_best_friend.nickname }}</span>님의 찜 목록입니다.</p>
+    </div>
+  </div></font>
+
+  {% comment %} <form action=""></form>
+    <form action="{% url "movies:recommend"%}">
+      {% csrf_token %}
+      <input type="submit" value="추천받기">
+    </form>
+  <hr> {% endcomment %}
+  <!-- 추천 받았을 때 보여줄 요소들 -->
+  <div class="movie-list-form" style="display:flex;flex-wrap:wrap;">
+    <font style="font-size:10pt;">
+      {% if my_best_friend %}
+        {% with  movies=my_best_friend.mymovie.all  %}
+          {% for movie in movies %}
+          <!-- 여기는 내 영화목록에 저장 -->
+          {% comment %} <div class="text-center" style="display:flex;flex-direction:row;">
+            <a href="{% url 'movies:detail' movie.pk %}">
+              <div style="padding:1px;">
+                <img src="{{ movie.poster }}" alt="" height="150px"> </div>
+                <div><strong>{{ movie.title|truncatechars:12 }}</strong></div>
+             
+            </a>
+            <!-- 여기는 디테일 정보로 이동 -->
+            
+          </div> {% endcomment %}
+             <div style="border:1px solid #C4CACD;margin:10px">
+     <!-- 여기는 내 영화목록에 저장 -->
+      {% comment %} <a href="{% url "accounts:add_mymovie_list" username movie.pk %}"> {% endcomment %}
+      <div>
+        <font style="font-size:12pt;"><strong><p>{{ movie.title }}</p></strong></font>
+      </div>
+      {% comment %} </a> {% endcomment %}
+      <!-- 여기는 디테일 정보로 이동 -->
+      <div style="display:flex;display-direction:row;justify-content:center">
+        <div>
+        <font style="font-size:10pt;">
+          <a href="{% url 'movies:detail' movie.pk %}">
+            <img style="margin:10px"src="{{ movie.poster }}" alt="" height="150px">
+          </a>
+        </div>
+        
+        <div>
+        <br>
+          <strong>{{ movie.genres }}</p></strong><p>
+          <p display="flex-end" align="left" vertical-align="bottom text-bottom">{{ movie.content|truncatechars:130 }}<br></p> 
+          <a valign="top" class="logout_btn submit-btn" href="{% url 'movies:detail' movie.pk %}">자세히 보기</a> 
+          
+        </div>
+      </div>
+      
+        
+          
+      </font>
+    </div>
+          {% endfor %}
+        {% endwith %}
+      {% endif %}
+    </font>
+  </div>
+ 
+{% endblock %}

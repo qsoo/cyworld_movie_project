@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block left %}
+  {% include 'accounts/_left_profile.html' %}
+{% endblock left %}
+
+{% block middle %}
+<br>
+  <strong><font style="font-size:14pt;"><p class="text-center">영화 목록</p></font></strong>
+    
+    <!-- 영화검색 기능 -->
+    <div class="movie-list-form" padding="10px" >
+      <div>
+      <input type="text" name="search_movie" placeholder="영화검색하기">
+      <input class="logout_btn" type="submit" value="검색">
+      <!-- 영화추천 받기 버튼 -->
+      <br>
+      <br>
+      <div><strong><a class="btn btn-info btn-block text-white font-weight-bold" href="{% url 'movies:recommend' %}">영화 추천받기</a></strong></div>
+      </div>
+    </div>
+    <!-- 검색했을 때 나올 결과 -->
+    <div class="movie-list-form" style="display:flex;flex-wrap:wrap;">
+    {% if search_movie %}
+      <br>
+      {% for movie in search_movie_list %}
+        <font style="font-size:10pt;">
+        <div class="text-center" style="display:flex;flex-direction:row;justify-content:center;">  
+          <a href="{% url 'movies:detail' movie.pk %}">
+            <div style="padding:1px;">
+              <img style="padding:5px;" src="{{ movie.poster }}" alt="영화포스터" height="150px"><br>
+              <strong>{{ movie.title|truncatechars:12 }}</strong>
+            </div>
+          </a> 
+        </div>
+        </font>
+      {% endfor %}
+    <!-- 전체 영화정보 나올 결과 -->
+    {% else %}
+      {% for movie in movies %}
+        <font style="font-size:11pt;">
+        <div class="text-center" style="display:flex;flex-direction:row;justify-content:center;">  
+          <a href="{% url 'movies:detail' movie.pk %}">
+          <div style="padding:1px;">
+            <img style="padding:5px;" src="{{ movie.poster }}" alt="영화포스터" height="185px"><br>
+            <strong>{{ movie.title|truncatechars:12 }}</strong>
+          </div>
+          </a> 
+        </div>
+        <br>
+        </font>
+      {% endfor %}
+        <br>
+    {% endif %}
+    </div>
+
+{% endblock middle %}
+  

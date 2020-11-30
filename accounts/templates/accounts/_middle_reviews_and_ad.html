@@ -1,0 +1,101 @@
+{% load static %}
+{% block middle %}
+<div padding="5px">
+		<table width="550">
+			<tr>
+				<th>
+					<!-- 가운데 상단 제목 -->
+					<br>
+					<font style="font-size:11pt;"><strong><p class="text-center">{{ host_user.username }}님의 미니홈피</p></strong></font>
+				</th>
+			</tr>
+			
+			<tr class="updated_news">
+				<!-- 영화리뷰들(업데이트 된) -->
+				<td width="250" >
+					{% for review in reviews %}
+					<div class="review-list">
+							<a class="text-primary" href="{% url "community:detail" review.pk %}">
+							NEW {{ review.title }}
+							</a>
+					</div>{% endfor %}
+					
+				</td>
+				<td width="10"></td>
+
+				<!-- 내가 관련된 게시물들(가운데 상단 오른쪽부분) -->
+				<td class="my_reviews">  	
+					<table width="350">
+						<tr><strong><p>나의 활동</p><strong></tr>
+						<tr>
+
+							<td><p style="font-size:11pt;">나의 작성글 ({{ host_user.review_set.all|length }})</p><br></td>
+							<td><p style="font-size:11pt;">나의 댓글 ({{ host_user.comment_set.all|length }})</p><br></td>
+						</tr>
+						<tr>
+							<td><p style="font-size:11pt;">나의 스크랩 ({{ host_user.scrap_reviews.all|length }})</p><br></td>
+							<td><p style="font-size:11pt;">나의 찜목록 ({{ host_user.mymovie.all|length }})</p><br></td>
+						</tr>
+									
+					</table>
+				</td>
+			</tr>
+		</table>
+		
+				<br/>
+
+				<table class="set-middle" bgcolor="#DBDBDB" width="450">
+
+					<tr>
+						<td>  
+							<!-- 가운데 미니룸 이미지 -->
+							<img width="550" height="300"  src="{% static "/img/middle_img4.jpg" %}" alt="">
+						</td>
+					</tr>
+				</table>
+
+				<!-- 가운데 하단 일촌평 -->
+				<hr>
+				<div style="text-align:right;">
+				<!-- 접속자 == 프로필 주인 -->
+				{% if request.user == host_user %}
+					<a type="button" class="logout_btn" width="85" height="50" border="5" alt="일촌평" value="일촌평" href="{% url 'accounts:linkedin' host_user.username %}">일촌평 보기</a><br><br>
+				</div>
+				<!-- 내 미니홈피가 아닐때는 작성가능 -->
+				{% else %}
+					<a type="button" class="logout_btn" width="85" height="50" border="5" alt="일촌평" value="일촌평" href="{% url 'accounts:linkedin' host_user.username %}">일촌평 작성</a><br>
+					</div>
+				{% endif %}
+				<!-- 방명록 글 가져오기 for로 -->
+				{% for book in visitorbooks %}
+					<!-- 프로필 사진 -->
+					<div style="border:1px solid #C4CACD;margin:10px">
+						<div style="border:1px solid #C4CACD;background-color:#C4CACD;display:flex;justify-content:space-around; ">
+							<div>작성자:{{ book.writer.nickname }}</div> 
+							<font style="font-size:9pt;">
+							<div>작성 시각:{{ book.created_at }}</div></font>
+						</div>
+						<div style="display:flex;display-direction:row;">
+							<div style="border:1px solid #C4CACD;width:110px;">
+								<!-- 포스터 가지고 있다면 -->
+								{% if book.writer.profile_img %}
+								<img src="{{ book.writer.profile_img.url }}" alt="" width="109px" height="148px">
+								{% else %}
+								<!-- 포스터 없을 때 -->
+								<img src="{% static "/img/empty_profile.png" %}" alt="" width="109px" height="148px">
+								{% endif %}
+							</div>
+							<div style="width:400px;">
+							{{ book.content }}</div>
+						</div>
+					</div>
+				<br>
+      	{% endfor %}
+</div>
+
+{% endblock middle %}
+	
+
+
+
+						

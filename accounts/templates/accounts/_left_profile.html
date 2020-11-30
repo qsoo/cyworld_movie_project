@@ -1,0 +1,58 @@
+{% load static %}
+
+<!--왼쪽 박스에 들어가는 프로필 사진과 닉네임, 아이디-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<htmL>
+ <head>
+  <title> 좌측 프로필 </title>
+ </head>
+ <body>	
+	<table>
+		<tr >
+			<td bgcolor="#c1dae3" align="center" height="80px" ><font style="font-size:10pt;"><p>Today is: 흐림 뒤 맑은날이 온다🌤</p></font></td>
+		</tr>
+		<tr >
+			<td>
+				<table bgcolor="#DBDBDB" width="130">
+					<tr class="profile-img">
+						<td><!-- 프로필 사진 DB에 저장되어있을 때 -->
+						{% if host_user.profile_img %}
+							<img class="profile-img-border" width="205" height="270" src="{{ host_user.profile_img.url }}" alt="">
+						<!-- 저장안되어있을 때 -->
+						{% else %}
+							<img class="profile-img-border" width="205" height="270" src="{% static '/img/empty_profile.png' %}" alt="">
+						{% endif %}
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td> 
+				<font style="font-size:9pt;">
+				<br>
+					<!-- 인사말이 있을 때 -->
+					{% if host_user.greetings %}
+						{{ host_user.greetings }}
+					{% else %}
+					<p>안녕하세요</p>
+					<p>{{ host_user.nickname }}님의<br> 미니홈피입니다</p>
+					{% endif %}
+				</font>
+			</td>
+		</tr>
+	</table>
+	<br/>
+	<table bgcolor="#DBDBDB" width="225">
+		<tr align="center">
+			<td height="100px" bgcolor="#c1dae3"><font style="font-size:9pt;">
+			<!-- 닉네임 아이디 -->	
+				
+				<b>{{ host_user.nickname }}</b><br><br><font color="#000099"><p>{{ host_user.email }}</p></font>
+			</font></td>
+		</tr>
+	</table>
+	
+ </body>
+
+</html> 

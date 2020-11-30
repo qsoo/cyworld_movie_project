@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block left %}
+  {% include 'accounts/_left_profile.html' %}
+{% endblock left %}
+
+{% block middle %}
+<br>
+
+<strong><font style="font-size:14pt;"><p class="text-center">영화리뷰 HOME</p></font></strong>
+
+<div class="movie-list-form">
+<!-- 영화검색 기능 -->
+  <input type="text" name="search_review" placeholder="리뷰검색">
+  <input type="submit" class="logout_btn" value="검색">
+</div>
+<div class="movie-list-form">
+{% if search_review %}
+  {% for review in search_review_list %}
+    <!-- 여기는 내 영화목록에 저장 -->
+    <div class="movie-list-form2">
+      <p>글 제목: {{ review.title |truncatechars:40}}</p>
+      <!-- 여기는 디테일 정보로 이동 -->
+      <div><a class="logout_btn submit-btn"href="{% url "community:detail" review.pk %}">자세히보기</a></div>
+    </div>
+  {% endfor %}
+  <!-- 검색했을 때 결과의 총 개수 출력 -->
+  <div style="padding: 10px;
+	  margin: 10px;
+	  width:520px;
+	  float:left;">
+    <p>검색결과는 총 <span>{{ search_review_list|length }}</span>개입니다</p>
+  </div>
+
+{% else %}
+{% for review in reviews %}
+  <div class="movie-list-form2">
+  <font style="font-size:10pt;">
+
+      <p>작성자 : {{ review.user }}</p>
+      <p>글 번호: {{ review.pk }}</p>
+      <p>글 제목: {{ review.title }}</p>
+      <p>글 내용: {{ review.content |truncatechars:80}}</p>
+      <div><a class="logout_btn submit-btn"href="{% url "community:detail" review.pk %}">자세히보기</a></div>
+
+  </font>
+ </div> 
+{% endfor %}
+{% endif %}
+</div>
+<!-- 검색했을 때 나올 결과 -->
+
+{% endblock  %}
+

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>{{ user.username }}리뷰</h2>
+{% for review in user.review_set.all %}
+  <div>{{ review.title }}</div>
+{% endfor %}
+
+{% endblock content %}
+
+
+

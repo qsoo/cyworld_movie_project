@@ -1,0 +1,19 @@
+<!-- left profile 채연 눈물셀카 + 아이디, 닉네임-->
+{% extends 'base.html' %}
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<htmL>
+ <head>
+  <title> SSAFY WORLD </title>
+	{% block left %}
+			<table>
+				<td width="200">
+				{% include 'accounts/_left_profile.html' %}	
+				</td>
+			</table>			
+	{% endblock left %} 
+
+	{% block middle %}
+
+	{% include 'accounts/_middle_reviews_and_ad.html' %}
+	{% endblock middle %}

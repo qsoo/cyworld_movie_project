@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block left %}
+  {% include 'accounts/_left_profile.html' %}
+{% endblock left %}
+
+{% block middle %}
+<div class="movie-list-form">
+ <h2 class="text-center">{{ review.title }}</h2>
+  <div padding="10px">
+  <div font-size="14px" style="float:right;">
+    <p><font>No: {{ review.pk }}</font>
+    <!-- 꽉 찬 북마크 아이콘 -->
+    {% if request.user in review.scrap_users.all %} 
+      <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-bookmark-check-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" d="M4 0a2 2 0 0 0-2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4zm6.854 5.854a.5.5 0 0 0-.708-.708L7.5 7.793 6.354 6.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
+      </svg>
+      <!-- 스크랩한 인원 수 -->
+      ({{ review.scrap_users.all|length }})
+    <!-- 비어있는 북마크 아이콘 -->
+    {% else %}
+      <svg text-align="left" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-bookmark-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+        <path fill-rule="evenodd" d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+      </svg>
+      <!-- 스크랩한 인원 수 -->
+      ({{ review.scrap_users.all|length }})
+    {% endif %}
+    </p>
+  </div>
+  
+    <strong><p><hr>영화 제목</p></strong> <div>{{ review.movie_title }}</div>
+    <table>
+      <td align="left" valign="top">
+        <strong><p>내용 </p></strong><font style="font-size:10pt;"><div>{{ review.content }}</div></font>
+      </td>
+      <td width="10px"></td>
+      
+    </table>
+  
+  
+  <br>
+  <font style="font-size:11pt;">
+  <strong><p>평점:</strong> {{ review.rank }}</p>
+  <strong><p>작성 시각:</strong> {{ review.created_at }}</p>
+  <strong><p>수정 시각:</strong>{{ review.updated_at }} </p></font>
+  <hr>
+  <!-- 작성자는 수정 삭제 보이고-->
+  {% if request.user == review.user %}
+    <a class="logout_btn submit-btn" href="{% url "community:update" review.pk %}">수정</a>
+    <!-- 삭제 -->
+    <form action=""></form>
+    <form action="{% url "community:delete" review.pk %}" method="POST">
+      {% csrf_token %}
+      <input class="logout_btn submit-btn" type="submit" value="삭제">
+    </form>
+  <!-- 그 외는 스크랩 버튼이 보인다 -->
+  {% else %}
+    <!-- 스크랩 버튼 -->
+    <font font-size="12px"><a class="logout_btn submit-btn" href="{% url "community:user_scraped_reviews" review.pk %}">스크랩</a></font>
+  {% endif %}
+
+
+  <!-- 댓글 부분 -->
+  <br><br>
+  <hr>
+  <strong><p>댓글 목록
+  {% if comments|length %}
+    <span>({{ comments|length }})</span>
+  </p></strong>
+  <br>
+  {% endif %}
+  {% for comment in comments %}
+      <div style="display:flex;display-direction:row">
+        {{ comment.user }} - {{ comment.content }}
+        <!-- 댓글 삭제 부분 댓글 작성자만 보이게 -->
+        {% if request.user == comment.user %}
+          <form></form>
+          <form action="{% url "community:delete_comment" review.pk comment.pk %}" method="POST">
+            <div >
+            <div style="float:left;">{% csrf_token %}</div>
+            <div><input class="logout_btn back-btn" type="submit" value="댓글 삭제"></div>
+        {% endif %}
+          </div>
+        </form>
+      </div>
+      <hr>
+    {% empty %}
+      <p>첫 번째 댓글을 달아주세요!</p>
+  {% endfor %}
+
+  <!-- 댓글작성 -->
+  {% if request.user.is_authenticated %}
+    <form action=""></form>
+    <form action="{% url 'community:create_comment' review.pk %}" method="POST">
+      {% csrf_token %}
+      {{ comment_form.as_p }} <!-- as_p 추가로 문제 해결-->
+      <input class="logout_btn submit-btn" type="submit" value="댓글작성">
+    </form>
+  {% else %}
+    <a href="{% url 'accounts:login' %}">[댓글을 작성하려면 로그인하세요.]</a>
+  {% endif %}
+  <a type="button" class="logout_btn back-btn" href="{% url 'community:index' %}">뒤로가기</a>
+  </div> 
+
+
+</div>
+ {% endblock  %}

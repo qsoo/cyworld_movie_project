@@ -1,0 +1,140 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 부트스트랩 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+  <!-- 배경 이미지 넣기 -->
+  <style>
+    body {
+      {% comment %} background-image: url("https://gif.fmkorea.com/files/attach/new/20170830/486616/8770543/759944382/d9fd980719ab72cf218e26aab6d52844.gif"); {% endcomment %}
+      background-image: {% static '/img/login_back.png' %}
+      background-repeat : no-repeat;
+      background-size : cover;
+      min-height: 100%;
+    }
+
+    #circle {
+      background-color:white;
+      width:400px;
+      height:400px;
+      border-radius:50%;
+      text-align:center;
+      margin:0 auto;
+      font-size:12px;
+      vertical-align:middle;
+      line-height:3em;
+      border: 15px solid #1ea8ba;
+    }
+
+    .login-text {
+      text-align: center;
+      width:200px;
+      height:200px;
+      margin:0 auto;
+      top:30%;
+      padding:200px 0px;
+      line-height: 150%;
+    }
+    .text {
+      text-align:center;
+      padding:200px 0px;
+
+    }
+    .font1 {
+      font-family:"Sans-Serif";
+      font-size:16px;
+    }
+    .login-btn {
+      width:100px;
+      text-align:right;
+		{% comment %} width:80px; {% endcomment %}
+      height:40px;
+      inline-height:60px;
+      background-color:#ffffff;
+      border: 7px solid #1ea8ba;
+      color:black;
+      padding:5px 0;
+      text-align:center;
+      font-size:10pt;
+      {% comment %} text-decoration:none; {% endcomment %}
+      font-size:15px;
+      margin:10px 0 0 0;
+      cursor:pointer;
+      {% comment %} border-radius: 2em; {% endcomment %}
+      line-height: 10px;
+    }
+    a:link {color: black; font-size: 9pt}
+    a:visited {color : black; font-size: 9pt}
+    a:hover {color : yello; font-size: 9pt}
+    a:active {color : blue; font-size: 9pt}
+  </style>
+  <title>SSAFY World</title>
+</head>
+<body>
+  {% block content %}
+  <!-- 로그인 부분 -->
+  <!-- 가운데 정렬 -->
+  <div>
+    <div class="text">
+      <div id="circle">
+      <br>
+      <div>
+      <img width="200px" src="{% static "/img/logo_with_name.png" %}" alt="">
+      </div>
+      
+      <br>
+        <form class="font1" action="" method="POST">
+          {% csrf_token %}
+          <div>
+          <div>
+          <!-- 아이디 부분 -->
+            <label for="id_username"></label>
+            <input type="text" name="username" placeholder="아이디" autofocus autocapitalize="none" maxlength="150" required id="id_username"> 
+            {% comment %} autocomplete="username" {% endcomment %}
+          </div>
+          <!-- 비밀번호 부분 -->
+          <div>
+            <label for="id_password"></label>
+            <input type="password" name="password" placeholder="비밀번호" required id="id_password">
+            {% comment %} autocomplete="current-password" {% endcomment %}
+          </div>
+          {% comment %} <br> {% endcomment %}
+          <!-- 제출 버튼 -->
+          
+          <input class="login-btn" type="submit" value="로그인"style="background-image:{% static '/img/login.png' %}; background-position:0px 0px;background-repeat: no-repeat;">
+        
+          </div>
+          
+          </form>
+        <a href="{% url 'accounts:signup' %}" >회원가입</a>
+      </div>
+    </div>
+  </div>
+  {% endblock  %}
+  
+</body>
+<!-- 부트스트랩 부분 -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+</html>
+
+
+<!--
+  <tr><th><label for="id_username">아이디:</label></th><td><input type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required id="id_username"></td></tr>
+<tr><th><label for="id_password">비밀번호:</label></th><td><input type="password" name="password" autocomplete="current-password" required id="id_password"></td></tr>
+ -->
+
+ <!--
+   <label for="id_username">Username:</label> 
+          <br>
+          <input name="username" type="text" value="">
+          <br>
+          Password:
+          <label for=""></label>
+          <br>
+          <input name="password" type="password" value="">
+          <input class="btn btn-primary" type="submit" value="로그인">
+ -->

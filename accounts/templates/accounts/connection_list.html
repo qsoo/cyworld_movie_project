@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block left %}
+  {% include 'accounts/_left_profile.html' %}
+{% endblock left %}
+{% block middle %}
+  <br>
+  <font style="font-size:14pt;"><strong><p class="text-center">일촌 리스트</p></strong></font>
+    <!-- 내가 내 일촌목록 볼 때 -->
+ <div class="movie-list-form"> 
+  {% if from_user == host_user %}
+      <!-- 내가 내 일촌목록 볼 때 -->
+      <font style="font-size:10pt;"><p>{{ host_user.nickname }}님의 일촌 ({{ host_user.connected.all|length }})</p></font>
+      <!-- 일촌 목록 보여주기 -->
+      <div style="border:1px solid #C4CACD">
+      {% for friend in host_user.connected.all %}
+      <ul>{{ friend }}</ul>
+      {% endfor %}
+      </div>
+      
+        {% if sending_connects %}
+          <font style="font-size:10pt;"><p>도착한 요청</p></font>
+          {% for send in sending_connects %}
+            <form action=""></form>
+            <form action="{% url "accounts:connected_complete" host_user.username send.give_user send.pk %}">
+              {% csrf_token %}
+              <font style="font-size:8pt;">{{ send.give_user }}님이 일촌을 요청했습니다.</font>
+              <input type="submit" value="수락">
+            </form>
+          {% endfor %}
+        {% else %}
+          <font style="font-size:10pt;"><p>들어온 일촌 요청이 없습니다🙇🏼‍♂️</p></font>
+        {% endif %}
+      <!-- 내꺼여도 일촌평 볼 수 있어야함 -->
+      {% for book in visitorbooks %}
+        <div style="border:1px solid #C4CACD;margin:10px">
+          <div style="border:1px solid #C4CACD;background-color:#C4CACD;display:flex;justify-content:space-around; ">
+          <div>작성자:{{ book.writer }}</div> 
+          <font style="font-size:9pt;"><div>작성 시각:{{ book.created_at }}</div></font>
+          </div>
+          <div style="display:flex;display-direction:row;">
+            <div style="border:1px solid #C4CACD;width:130px;">
+              <!-- 포스터 -->
+              <img src="{{ book.writer.profile_img.url }}" alt="" width="129px" height="148px">
+            </div>
+            <div style="width:400px;">{{ book.content }}</div>
+          </div>
+        </div>
+        <br>
+      {% endfor %}
+    <!-- 일촌일때 보여줄 메세지 -->
+    {% elif from_user in host_user.connected.all %}
+      <font style="font-size:12pt;"><p>{{ host_user }}님의 일촌인 {{ from_user }}님 반가워요👋🏼</p>
+      <!-- 일촌평 남길 수 있는 부분 -->
+      <form action=""></form>
+      <form action="{% url "accounts:visitor_book_create" host_user from_user %}" method="POST">
+        {% csrf_token %}
+        <p><strong>방명록 작성하기</strong></p>
+          {{ visitorbook_form.content }}
+        <input class="logout_btn" type="submit" value="작성">
+      </form>
+      <hr>
+      <br>
+      <!-- 일촌평 보여줄 부분 -->
+      <!-- 이부분에 저번에 보여준 것처럼 작성자랑 프로필사진 내용 느낌으로 가면 좋을 것 같음-->
+      <p><strong>{{ host_user }}님께 한마디 남겨보세요✍🏼</strong></p>
+        {% for book in visitorbooks %}
+          <div style="border:1px solid #C4CACD;margin:10px">
+            <div style="border:1px solid #C4CACD;background-color:#C4CACD;display:flex;justify-content:space-around; ">
+            <div>작성자:{{ book.writer }}</div> 
+            <font style="font-size:9pt;"><div>작성 시각:{{ book.created_at }}</div></font>
+            </div>
+            <div style="display:flex;display-direction:row;">
+              <div style="border:1px solid #C4CACD;width:110px;">
+                <!-- 포스터 있을때 -->
+                {% if book.writer.profile_img %}
+								<img src="{{ book.writer.profile_img.url }}" alt="" width="109px" height="148px">
+								{% else %}
+								<!-- 포스터 없을 때 -->
+								<img src="{% static "/img/empty_profile.png" %}" alt="" width="109px">
+								{% endif %}
+              </div>
+              <div style="border:1px solid #C4CACD;width:400px;">{{ book.content }}</div>
+            </div>
+          </div>
+          <br>
+        {% endfor %}
+    
+      
+    <!-- 일촌은 아니지만 일촌 신청을 보냈을 때 -->
+    {% elif is_send %}
+      <p>일촌이 아니지만 요청은 보냈어요!</p>
+    <!-- 일촌이 아니고 요청도 안보냈을 때 -->
+    {% else %}
+      <p>나와 일촌이 아닙니다.</p>
+      <!-- 일촌 신청 버튼 -->
+      <form action=""></form>
+      <form action="{% url "accounts:send_connected" host_user.username %}" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="일촌신청하기!">
+      </form>
+</font>
+    {% endif %}
+    <hr>
+    <a class="logout_btn submit-btn" href="{% url "accounts:mypage" request.user %}">뒤로가기</a>
+</div>
+  
+{% endblock %}

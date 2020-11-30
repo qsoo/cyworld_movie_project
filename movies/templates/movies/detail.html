@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block left %}
+  {% include 'accounts/_left_profile.html' %}
+{% endblock left %}
+
+{% block middle %}
+<div class="movie-list-form">
+  <font style="font-size:10pt;">
+  <font style="font-size:14pt"><p><strong>{{ movie.title }}</strong></p></font>
+  <p><strong>장르:</strong> {{ movie.genres }}</p>
+  <p><strong>감독:</strong> {{ movie.director }}</p>
+  <p><strong>국가 :</strong> {{ movie.nations }}</p>
+  <table>
+    <tr>
+      <td>
+        <div><img src="{{ movie.poster }}" alt="" width="200px"></div>
+      </td>
+      {% comment %} <td witdh="20px"></td> {% endcomment %}
+      <td padding="10px">
+        <div>줄거리 : <br>{{ movie.content }}</div>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  <a type="button" class="logout_btn" href="{% url 'movies:index' %}">뒤로가기</a>
+</font>
+</div>
+{% endblock middle %}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block left %}
+  {% include 'accounts/_left_profile.html' %}
+{% endblock left %}
+
+{% block middle %}
+<p class="text-center">회원정보 수정</p>
+<div class="create-form">
+  <form action="" method="post">
+    <!-- 에러 메시지 달아주기 -->
+    {% csrf_token %}
+    <!-- 비밀번호에 대한 메세지가 나오니 제거 -->
+    <table>
+        <form action=""></form>
+        <tr><td>
+          <!-- 파일 업로드를 위한 인코딩 -->
+          <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input class="logout_btn submit-btn" type="submit" value="변경하기"><br>
+            {{form.as_p}}
+          </form>  
+        </td></tr>
+    </table>
+  <hr>
+</div>
+
+  <div><a type="button" class="logout_btn submit-btn" href="{% url "accounts:mypage" request.user %}">뒤로가기</a></div>
+  
+
+{% endblock %}

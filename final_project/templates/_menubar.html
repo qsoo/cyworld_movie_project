@@ -1,0 +1,15 @@
+<div class="menu_bar menu_margin">
+  <a type="button" class="menu_btn" width="85" height="50" border="5" alt="홈" value="홈" href="{% url 'accounts:firstpage' user.username %}">홈</a><br><br> 
+  <a type="button" class="menu_btn" width="85" height="50" border="5" alt="영화리뷰" value="영화리뷰" href="{% url 'community:index' %}">영화리뷰</a><br><br>
+  <a type="button" class="menu_btn" width="85" height="50" border="5" alt="리뷰작성" value="리뷰작성" href="{% url 'community:create' %}">리뷰작성</a><br><br>
+  <a type="button" class="menu_btn" width="85" height="50" border="5" alt="영화목록" value="영화목록" href="{% url 'movies:index' %}">영화목록</a><br><br>
+  <a type="button" class="menu_btn" width="85" height="50" border="5" alt="일촌평" value="일촌평" href="{% url 'accounts:linkedin' request.user.username %}">일촌평</a><br><br>
+
+  <a type="button" class="menu_btn" width="85" height="50" border="5" alt="내 찜목록" value="내 찜목록" href="{% url "accounts:my_movie_list" request.user %}">내 찜목록</a><br><br>
+  <a type="button" class="menu_btn" width="85" height="50" border="5" alt="내프로필" value="내프로필" href="{% url 'accounts:mypage' request.user.username %}">내 프로필</a><br><br></div>
+
+<style>
+.menu_margin {
+  margin-top:10px;
+}
+</style>

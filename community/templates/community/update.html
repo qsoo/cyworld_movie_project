@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block left %}
+  {% include 'accounts/_left_profile.html' %}
+{% endblock left %}
+
+{% block middle %}
+  <h1 class="text-center">UPDATE</h1>
+  <form action=""></form>
+  <form action="" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <font style="font-size:8pt;"><input class="logout_btn submit-btn" type="submit" value="리뷰수정"></font>
+      </font>
+  </form>
+  <hr>
+  <font style="font-size:8pt;"><a class="logout_btn" href="{% url 'community:detail' review.pk %}">뒤로가기</a></font>
+{% endblock %}

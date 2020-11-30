@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block left %}
+  {% include 'accounts/_left_profile.html' %}
+{% endblock left %}
+
+{% block middle %}
+<h2 class="text-center">스크랩 글 목록</h2>
+<div class="create-form">
+<!-- 스크랩 글 목록 출력 -->
+<p>{{ host_user.username }}님의 스크랩 목록입니다.</p>
+<hr>
+{% for review in host_user.scrap_reviews.all %}
+  <a href="{% url "community:detail" review.pk %}">
+  제목: {{ review.title }}
+  <br>
+  작성자: {{ review.user }}
+  </a>
+  <br><hr>
+{% endfor %}
+
+<br>
+
+</div><a class="logout_btn submit-btn" href="{% url "accounts:mypage" request.user %}">뒤로가기</a>
+{% endblock %}

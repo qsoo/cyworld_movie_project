@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block left %}
+  {% include 'accounts/_left_profile.html' %}
+{% endblock left %}
+
+{% block middle %}
+<br>
+  <strong><font style="font-size:14pt;"><p class="text-center">영화 리뷰 쓰기</p></font></strong>
+  <div class="create-form">
+    <form action=""></form>
+    <form action="" method="POST">
+      <font style="font-size:10pt;">
+        {% csrf_token %}
+        &nbsp;글 제목:&nbsp;&nbsp;&nbsp;{{ form.title }}
+        <table>
+          <td>영화 제목:{{ form.movie_title}}</td>
+          <td>평점:{{ form.rank }}</td>
+        </table>
+        <table>
+          <td><p>포스터 자리 자리</p></td>
+          <td width="10px"></td>
+          <td>내용: {{ form.content }}</td>
+        </table>
+        <font style="font-size:8pt;"><input class="logout_btn submit-btn" type="submit" value="리뷰작성"></font>
+      </font>
+    </form>
+  </div>
+    
+  <a class="logout_btn back-btn" href="{% url 'community:index' %}">뒤로가기</a>
+{% endblock middle %}
+
+

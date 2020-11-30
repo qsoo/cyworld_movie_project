@@ -1,0 +1,483 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/dacf7dcd9c.js" crossorigin="anonymous"></script>
+	<!-- favicon -->
+	<link rel="shortcut icon" type="image/x-icon" href="{% static "img/logo.png" %}">
+  <title>SSAFY WORLD</title>
+</head>
+<div>
+
+</div>
+  <!-- nav (로고, 인사말, 로그아웃버튼)-->
+    <nav height="60px"class="navbar navbar-light bg-light nav-design">
+      <a class="navbar-brand" href="{% url "accounts:firstpage" request.user.username %}">
+			<div background="{% static "/img/logo_with_name.png" %}"></div>
+			<img width="150px" height=""src="{% static "/img/logo_with_name.png" %}" alt="싸피월드 로고">
+			</a>
+				&nbsp;&nbsp;&nbsp;
+					<span class="right1">
+						<input class="skinButton" type="button" name="bt_skin3" value="{{request.user.username}}님" onclick="colorChange()">
+					</span>
+		</nav>
+	
+  
+{% block content %}
+{% endblock %}
+<form name="main">
+
+  <body bgcolor="#F3F3F3" topmargin="0" leftmargin="0" background="{% static "/img/back.jpg" %}">
+		<br>
+		<script language="javascript">	
+		</script>
+	
+	<table class="big_table" align="left" valign="top" width="850" height="550" bgcolor="#003366" cellspacing="0" cellpadding="0">
+		<tr>
+				<script language="javascript">
+				
+					// 테이블 안에 들어가게 함 
+					// 이 부분이 없어지면 화면 구성 이상해져서 일단 냅둠 
+					if (location.search)
+					{
+						var param_name = location.search.split("?")[1]
+						var param_value = param_name.split("=")[1]  // value
+						var param_name = param_name.split("=")[0]   // name
+
+					}		
+
+					if (param_name == "skin")
+					{
+						if (param_value == "2") 
+							document.write('<td background="./images/back2.jpg">')	
+						else if (param_value == "3") 
+							document.write('<td background="./images/back3.jpg">')
+						else 
+							document.write('<td class="big_table" bgcolor="./images/back.jpg">')
+					}
+					else
+					{
+						document.write('<td class="big_table" bgcolor="./images/back.jpg">')
+					}
+	
+				</script>
+
+				<div class="big-table-border">
+				
+				<div>
+					<font><span class="today-total" style="font-size:11pt;color:black;">  Today 1127 | Total 2020</span></font>
+				</div>
+				
+			
+
+				<!-- 가장 큰 테이블 -->
+				<table  width="1000" height="700">
+				
+					<tr>
+						<td colspan="2" align="center">
+							<br>
+							
+						</td>
+						<td height="40">
+							<br>
+							<font><span width="100"style="font-size:13pt;font-weight:bold"><center><font color="#4B9687"></font></center></span></font>
+						</td>
+						<td></td>
+					</tr>
+					<tr>
+					<div>
+						<td width="40"> </td>
+						
+							<td class="border2" width="200" height="600" background-color="#f3fbfe">
+								<!-- 왼쪽 부분은 다른 페이지를 넘어가도 고정 -->
+								<!-- 프로필 부분 -->
+								{% block left %}
+
+								{% endblock left %}
+							</td>
+
+							{% comment %} <td width="20"> </td> {% endcomment %}
+
+							<td class="div-scroll profile-box border2" width="600" height="650" border="10" background-color="#f3fbfe">
+							<!-- 조건에 따라 중간 부분에 다른 html을 포함한다.-->
+							<!-- 류승룡 부분 -->
+								<div >
+									{% block middle %}
+
+									{% endblock middle %}
+								</div>
+							<!-- 1. 프로필 페이지(accounts/profile.html) 2. 리뷰 작성 페이지(community/create.html) 3. 리뷰 디테일 페이지(community/detail.html)-->
+							<!-- 프로필 페이지 -->
+							{% comment %} {% if %} {% endcomment %}
+								
+							<!-- 리뷰 작성 페이지 -->
+							{% comment %} {% elif %}
+								{% include 'community/create.html' %}
+							<!-- 리뷰 디테일 페이지-->
+							{% elif %}
+								{% include 'community/detail.html' %} {% endcomment %}
+							</td>
+							<td width="20"> </td>
+					</div>
+						
+					</tr>
+					<tr>
+						<td ></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+	</div>
+	<br>
+	<br>
+	<div style="display:flex;flex-wrap:nowrap;">
+		<div style="display:flex;flex-wrap:nowrap;">
+			{% block menu %}
+				<!-- 책갈피 메뉴바 -->
+				{% include '_menubar.html'%}	
+			{% endblock menu %}
+			</div>
+			
+			<div style="display:flex;flex-wrap:nowrap;padding:10px;margin:-60px 0;align-items:flex-start;">
+				{% block songs %}
+					<!-- 노래 -->
+					{% include 'accounts/_right_bgm.html' %}
+				{% endblock songs %}
+			</div>
+	</div>
+		
+			<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+			<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+			<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+	</body>
+
+</form>
+<footer>
+{% include 'footer.html' %}
+</footer>
+<style>
+.menu_bar {
+  float:left;
+	border-radius: 0em;
+	margin: -35px;
+	padding: 15px;
+}
+
+.menu_btn {
+	width:60pt;
+	height:30pt;
+	border: 1px solid #546B7B;
+	background-color: #6a869a;
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+	text-align:center;
+	color: white !important;
+	line-height: 40px;
+}
+
+.skinButton {
+	 	text-align:right;
+		width:80px;
+		height:30px;
+		inline-height:30px;
+    background-color:#E0E6F8;
+    border: 2px solid #C4CACD;
+    color:black;
+    padding:5px 0;
+    text-align:center;
+    text-decoration:none;
+    font-size:15px;
+    margin:5px;
+    cursor:pointer;
+		line-height: 0px;
+}
+
+.m-recommend-btn {
+	text-align:center;
+		width:150px;
+		height:40px;
+		inline-height:40px;
+    background-color:#C4CACD;
+    border: 5px solid #1ea8ba;
+    color:black;
+    padding:10px 0;
+    text-align:center;
+    margin:10px;
+    cursor:pointer;
+		float:right;
+		line-height: 0px;
+}
+
+.right1 {
+	display:flex;
+	justify-content:flex-end;
+	align-items:center;
+}
+
+.border1 {
+	border: 10px solid #C4CACD;
+}
+
+.border2 {
+	bgcolor:#EFF2FB;
+	border:1px solid #C4CACD;
+}
+
+footer {
+	width:100%;
+	height:40px;
+	position:absolute;
+	bottom:0;
+	background:#6a869a;
+	text-align: center;
+  color: white;
+}
+
+.logout_btn {
+		text-align:right;
+		width:80px;
+		height:30px;
+		inline-height:30px;
+    background-color:#E0E6F8;
+    border: 2px solid #C4CACD;
+    color:black;
+    padding:5px 0;
+    text-align:center;
+		font-size:12pt;
+    margin:5px;
+    cursor:pointer;
+		line-height: 15px;
+}
+
+.mypage_btn {
+			text-align:right;
+		width:80px;
+		height:30px;
+		inline-height:30px;
+    background-color:#E0E6F8;
+    border: 2px solid #C4CACD;
+    color:black;
+    padding:5px 0;
+    text-align:center;
+		font-size:13pt;
+    font-size:15px;
+    margin:5px;
+    cursor:pointer;
+		line-height: 15px;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+.bgm_box {
+	margin: 5px 0px 0px 100px;
+	background-color: #dddddd;
+	padding: 0px 0px 0px 0px;
+	float:left;
+	height: 58px;
+	width: 280px;
+	border: 2px solid #C4CACD;
+	display:flex;
+	align-items:flex-end;
+	justify-content:center;
+	}
+
+	.bgm_box2{
+	margin: 30px 30px 0 50px;
+	background-color: #dddddd;
+	padding: 0px 0px 0px 0px;
+	float:left;
+	height: 150px;
+	width: 280px;
+	border: 2px solid #C4CACD;
+	display:flex;
+	justify-content:center;
+	}
+
+.big_table {
+	border-right: 10px outset #8bc4e3 ;
+	border-bottom: 10px outset #8bc4e3 ;
+}
+
+.nav-design {
+	border-bottom: 2px solid #C4CACD;
+}
+.today-total {
+	background-color: #EFF5FB;
+	width: 300;
+	height: 60px;
+	border: 3px solid #C4CACD;
+	padding: 5px;
+	margin: 40px;
+}
+.profile-box {
+	display:inline-flex;
+}
+
+.bgimg-box {
+	border: 1px solid #92c0d1;
+	display:flex;
+	justify-content:start-end;
+}
+
+body {
+	scrollbar-face-color: #FFFFFF;
+	scrollbar-highlight-color: #DBDBDB;
+	scrollbar-3dlight-color: #FFFFFF;
+	scrollbar-shadow-color: #9C92FF;
+	scrollbar-darkshadow-color: #FFFFFF;
+	scrollbar-track-color: #FFFFFF;
+	scrollbar-arrow-color: #9C92FF
+}
+
+.updated_news {
+border:1px solid #C4CACD;
+bgcolor="#ffffff"
+}
+
+.my_reviews {
+border:1px solid #C4CACD;
+}
+
+.visitor {
+	text-align:right;
+	width:100px;
+	height:30px;
+	inline-height:40px;
+	color:#fff;
+	padding:5px 0;
+	text-align:center;
+	text-decoration:none;
+	font-size:15px;
+	margin:5px;
+	cursor:pointer;
+	font-color:black;
+	background-color:#E0E6F8;
+	border-radius: 2em;
+	border: 5px solid #81DAF5;
+	line-height: 0px;
+}
+
+.div-scroll {
+	height:653px;
+	overflow-y:scroll;
+	scrollbar-face-color:#FFFFFF;
+	scrollbar-highlight-color:#DBDBDB;
+	scrollbar-3dlight-color:#FFFFFF;
+	scrollbar-shadow-color:#9C92FF;
+	scrollbar-darkshadow-color:#FFFFFF;
+	scrollbar-track-color:#FFFFFF;
+	scrollbar-arrow-color:#9C92FF
+}
+
+.mypage-scroll {
+	overflow-y:scroll;
+	scrollbar-face-color:#FFFFFF;
+	scrollbar-highlight-color:#DBDBDB;
+	scrollbar-3dlight-color:#FFFFFF;
+	scrollbar-shadow-color:#9C92FF;
+	scrollbar-darkshadow-color:#FFFFFF;
+	scrollbar-track-color:#FFFFFF;
+	scrollbar-arrow-color:#9C92FF
+}
+
+.review-list {
+	display: flex;
+	display-direction: column;
+	justify-content:center;
+}
+
+@import url(http://fonts.googleapis.com/earlyaccess/jejumyeongjo.css);
+html *
+
+{
+	font-family:'Arial' !important;
+}
+
+.profile-img {
+	border-top:10px solid #ffffff;
+	border-left:10px solid #ffffff;
+	border-right:10px solid #ffffff;
+	border-bottom:50px solid #ffffff;
+}
+
+.create-form {
+	background-color: #ffffff;
+	padding: 10px;
+	margin: 10px;
+	height: 525px;
+	width:560px;
+	border:1px solid #C4CACD
+}
+
+.mypage-form {
+	background-color: #ffffff;
+	padding: 10px;
+	margin: 10px;
+	width:550px;
+	border:1px solid #C4CACD
+}
+
+.submit-btn {
+	float:right;
+}
+
+.review-list {
+	padding: 10px;
+	display:flex;
+	justify-content:space-between;
+}
+
+.movie-list-form {
+	background-color: #ffffff;
+	padding: 10px;
+	margin: 10px;
+	width:560px;
+	float:left;
+	border:1px solid #C4CACD
+}
+
+.movie-list-form2 {
+	background-color: #ffffff;
+	padding: 10px;
+	margin: 10px;
+	width:520px;
+	float:left;
+	border:1px solid #C4CACD
+}
+
+.big-table-border {
+	border: 15px solid #92c0d1;
+	background-color:#d4e8ef;
+}
+
+a:link {color: black; font-size: 9pt}
+a:visited {color : black; font-size: 9pt}
+a:hover {color : yello; font-size: 9pt}
+a:active {color : blue; font-size: 9pt}
+
+.back-btn {
+	float-right;
+}
+
+</style>
+</html>
+<script language="javascript">
+
+window.onfocus=function(){
+}
+window.onload=function(){
+window.focus(); // 현재 window 즉 익스플러러를 윈도우 최상단에 위치
+window.moveTo(0,0); // 웹 페이지의 창 위치를 0,0 (왼쪽 최상단) 으로 고정
+window.resizeTo(1280,800); // 웹페이지의 크기를 가로 1280 , 세로 800 으로 고정(확장 및 축소)
+window.scrollTo(0,250); // 페이지 상단 광고를 바로 볼 수 있게 스크롤 위치를 조정
+}
+</script> 

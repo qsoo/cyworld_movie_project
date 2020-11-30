@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 배경 이미지 넣기 -->
+  <style>
+    body {
+      {% comment %} background-image: url("https://mblogthumb-phinf.pstatic.net/MjAxODAzMThfMjc4/MDAxNTIxMzUxMTc3Mjk5.HuDVJabP7fXgO_XkW8_Fxo5AdCSw-stW-UB9R928aMAg.FP_TKnKKN2hLsWz3I8D3WusJElyNfobiZTrRzWhQHvsg.GIF.ertyupoq/ghdlzk_%2812%29.gif?type=w2"); {% endcomment %}
+      background-repeat : no-repeat;
+      background-size : cover;
+      min-height: 100%;
+    }
+
+    #circle {
+      background-color:white;
+      width:800px;
+      height:800px;
+      border-radius:50%;
+      text-align:center;
+      margin:0 auto;
+      font-size:12px;
+      vertical-align:middle;
+      {% comment %} line-height:3em; {% endcomment %}
+      border: 15px solid #1ea8ba;
+    }
+
+    .login-text {
+      text-align: center;
+      width:200px;
+      height:200px;
+      margin:0 auto;
+      top:30%;
+      padding:200px 0px;
+      line-height: 150%;
+    }
+    .text {
+      text-align:center;
+      padding:100px 0px;
+
+    }
+    .font1 {
+      font-family:"Sans-Serif";
+      font-size:16px;
+    }
+  </style>
+  <title>SSAFY World</title>
+</head>
+<body>
+  {% block content %}
+  <!-- 로그인과 같음 -->
+  <!-- 가운데 정렬 -->
+  <div>
+    <div class="text">
+      <div id="circle">
+      <br>
+      <br>
+      <br>
+      <br>
+
+      <div>
+      <img width="200px" src="{% static "/img/logo_with_name.png" %}" alt="">
+      </div>
+      <h1>회원가입</h1>
+      <br>
+      <br>
+        <!-- 에러 메시지 -->
+        <form action="" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <input type="submit" value="회원가입하기">
+        </form>
+      <br>
+        <br>
+        <!-- 뒤로가기 버튼 -->
+        <a class="logout_btn" href="{% url 'accounts:login' %}">뒤로가기</a>
+      </div>
+    </div>
+  </div>
+
+  {% endblock  %}
+  
+</body>
+</html>

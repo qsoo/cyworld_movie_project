@@ -1,0 +1,42 @@
+<!-- footer 고정 필요! -->
+<div style="display:flex;display-direction:row;justify-content:flex-end;align-items:center;">
+  <div >
+    <script language="javascript">
+            // 왼쪽 상단 날짜 표시
+      var now = new Date()
+      document.write('<span style="font-size:10pt;font-weight:bold;">&nbsp;&nbsp;&nbsp; 오늘은 ')
+      document.write(now.getFullYear() + '년' + (now.getMonth()+1) + '월' +  now.getDate()+'일' + ' ' + now.getHours() + ':' + now.getMinutes())
+      document.write('</span>')
+
+    </script>
+  </div>
+  <div width="300px"></div>
+  {% comment %} <div> {% endcomment %}
+  {% if request.user.is_authenticated %}
+    <!-- 드롭다운으로 일촌들 간 이동하기 -->
+    <div class="btn-group dropup" >
+      <button type="button" class="btn btn-light btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <font style="font-size:10pt;">일촌목록</font>
+      </button>
+      <div class="dropdown-menu">
+        <!-- 일촌들 넣기 -->
+        {% for friend in request.user.connected.all %}
+        <a class="dropdown-item" href="{% url 'accounts:firstpage' friend.username %}">{{ friend.nickname }}</a>
+        {% endfor %}
+      </div>
+    </div>
+    <!-- 로그아웃 -->
+    <div >
+      <form action="{% url 'accounts:logout' %}" method="POST">
+        {% csrf_token %}
+        <!-- type submit이어야 POST 요청보내져서 변경 -->
+        <input class="logout_btn" type="submit" value="로그아웃">
+      </form>
+    </div>  
+  
+  {% endif %}
+  {% comment %} </div> {% endcomment %}
+</div>
+
+
+
