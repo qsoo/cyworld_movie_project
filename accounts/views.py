@@ -269,6 +269,10 @@ def visitor_book_create(request, host, writer):
 # 내 영화목록 조회 - 추가한 영화 목록과 검색기능(DB)
 @login_required
 def my_movie_list(request, username):
+
+    # 해당 페이지의 주인의 정보를 가져와야 한다
+    host_user = get_object_or_404(User, username=username)
+
     # 1. 영화 전체 리스트를 가져온다
     movies = Movie.objects.all()
     # 2. 검색어가 있을 때는 해당 쿼리셋도 가져온다
@@ -294,6 +298,7 @@ def my_movie_list(request, username):
         'search_movie_list': search_movie_list,
         'username': username,
         'host': host,
+        'host_user': host_user,
 
     }
     return render(request, 'accounts/my_movie_list.html', context)
