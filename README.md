@@ -85,10 +85,6 @@ $ python manage.py runserver
 │  │  urls.py
 │  │  views.py
 │  │  __init__.py
-│  │ 
-│  ├─migrations
-│  │      0001_initial.py
-│  │      __init__.py
 │  │      
 │  └─templates
 │      └─accounts
@@ -115,8 +111,6 @@ $ python manage.py runserver
 │  │  urls.py
 │  │  views.py
 │  │  __init__.py
-│  │  
-│  ├─migrations
 │  │      
 │  └─templates
 │      └─community
@@ -159,10 +153,6 @@ $ python manage.py runserver
 │  │  urls.py
 │  │  views.py
 │  │  __init__.py
-│  │  
-│  ├─migrations
-│  │      0001_initial.py
-│  │      __init__.py
 │  │      
 │  └─templates
 │      └─movies
